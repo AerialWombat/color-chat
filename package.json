@@ -1,0 +1,19 @@
+{
+	"name": "socket-chat",
+	"version": "1.0.0",
+	"description": "A simple chat app using socket.io",
+	"main": "server.js",
+	"author": "AerialWombat",
+	"license": "MIT",
+	"scripts": {
+		"start": "node server.js",
+		"dev": "nodemon server.js"
+	},
+	"dependencies": {
+		"express": "^4.17.1",
+		"socket.io": "^2.2.0"
+	},
+	"devDependencies": {
+		"nodemon": "^1.19.1"
+	}
+}

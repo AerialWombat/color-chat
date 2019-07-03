@@ -1,0 +1,74 @@
+/* Sidebar
+======================================*/
+.sidebar {
+	position: absolute;
+	z-index: 99;
+	height: 100%;
+	width: 66.6%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background: $dark-color;
+	transform: translateX(-100%);
+	transition: 0.25s all ease;
+
+	&.show {
+		transform: translateX(0);
+	}
+
+	.rooms {
+		display: flex;
+		flex-direction: column;
+		list-style: none;
+		overflow: scroll;
+
+		&--link {
+			padding: 0.5rem 1.25rem;
+			color: darken($light-color, 25%);
+			cursor: pointer;
+			transition: 0.25s ease-in all;
+
+			&__active {
+				padding: 0.5rem 1.25rem;
+				color: lighten($light-color, 15%);
+				background-color: lighten($dark-color, 15%);
+				cursor: pointer;
+			}
+
+			&--title {
+				font-size: 1.25rem;
+				font-weight: bold;
+			}
+
+			&--description {
+				font-size: 0.75rem;
+			}
+
+			&:hover {
+				color: lighten($light-color, 25%);
+				background-color: lighten($dark-color, 25%);
+			}
+		}
+	}
+
+	.profile {
+		display: flex;
+
+		padding: 0.5rem;
+		border-top: 1px solid $light-color;
+
+		&--name {
+			padding: 0.5rem;
+			font-weight: bold;
+		}
+
+		input[type='color'] {
+			padding: 0.25rem;
+			height: 2.5rem;
+			width: 2.5rem;
+			align-self: center;
+			background: $dark-color;
+			border: none;
+		}
+	}
+}

@@ -1,0 +1,14 @@
+/* Navbar
+======================================*/
+.navbar {
+	border-bottom: 1px solid $light-color;
+	height: 10%;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	i {
+		font-size: 1.5rem;
+	}
+}

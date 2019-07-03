@@ -1,0 +1,51 @@
+/* Messages
+======================================*/
+
+.messages {
+	padding: 0 0.5rem;
+	height: 90%;
+	width: 100%;
+
+	&--display {
+		height: 90%;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		overflow: scroll;
+
+		li {
+			padding: 0.25rem 0.25rem;
+
+			&:nth-child(even) {
+				background-color: lighten($dark-color, 5%);
+			}
+		}
+	}
+
+	&--form {
+		height: 10%;
+		width: 100%;
+
+		&--input {
+			padding: 0.5rem;
+			border: 0;
+			border-radius: 5px;
+			width: 80%;
+			color: inherit;
+			background-color: #121212;
+		}
+
+		&--submit {
+			background: rgb(130, 224, 255);
+			border: 1px solid coral; // Replace with user custom color
+			border-radius: 5px;
+			color: inherit;
+			background: none;
+			padding: 0.5rem;
+
+			&:hover {
+				color: lighten($light-color, 50%);
+			}
+		}
+	}
+}

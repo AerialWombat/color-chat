@@ -38,3 +38,86 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 }
+
+/* Login
+======================================*/
+.login {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $dark-color;
+
+	&__form {
+		display: flex;
+		flex-direction: column;
+		width: 75%;
+
+		&__title {
+			margin-bottom: 0.5rem;
+			text-align: center;
+			font-size: 1.25rem;
+		}
+
+		div {
+			position: relative;
+			margin-bottom: 0.75rem;
+
+			& > input {
+				width: 100%;
+				padding: 0.25rem;
+				border: 2px solid transparent;
+				border-bottom-color: hsla(0, 0%, 73%, 0.2);
+				color: $light-color;
+				font-size: 1rem;
+				font-family: inherit;
+				background-color: transparent;
+
+				&:focus {
+					outline: none;
+
+					& ~ span {
+						transform-origin: bottom left;
+						transform: scaleX(1);
+					}
+				}
+
+				&:placeholder {
+					color: hsla(0, 0%, 100%, 0.6);
+				}
+			}
+
+			& > span {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background-color: $light-color;
+				transform-origin: bottom right;
+				transform: scaleX(0);
+				transition: transform 0.5s ease;
+			}
+		}
+
+		input[type='color'] {
+			padding: 0.25rem;
+			margin-bottom: 0.75rem;
+			height: 2.5rem;
+			width: 5rem;
+			align-self: center;
+			background: $dark-color;
+			border: none;
+			cursor: pointer;
+		}
+
+		button {
+			font-size: 1.25rem;
+		}
+	}
+}

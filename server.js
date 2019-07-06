@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 const users = {};
 io.on('connection', socket => {
 	console.log('User connected...');
-	users[socket.id] = { username: '', color: '' };
+	users[socket.id] = { nickname: '', color: '' };
 	console.log(users);
 	io.emit('chat message', 'A user has connected...');
 

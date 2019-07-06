@@ -14,12 +14,12 @@
 		transform: translateX(0);
 	}
 
-	&--title {
+	&__title {
 		padding: 0.5rem 0.25rem;
 		font-size: 1.25rem;
 	}
 
-	&--list {
+	&__list {
 		list-style: none;
 
 		li {

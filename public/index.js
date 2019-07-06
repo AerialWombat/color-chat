@@ -27,22 +27,22 @@ window.onload = () => {
 		/* Socket
 ======================================*/
 
-		$('.messages--form').on('submit', function() {
+		$('.messages__form').on('submit', function() {
 			event.preventDefault();
-			const messageInput = $('.messages--form--input').val();
+			const messageInput = $('.messages__form__input').val();
 
 			// Check for empty message
 			if (messageInput.length < 1) {
 				return false;
 			}
 
-			socket.emit('chat message', $('.messages--form--input').val());
-			$('.messages--form--input').val('');
+			socket.emit('chat message', $('.messages__form__input').val());
+			$('.messages__form__input').val('');
 			return false;
 		});
 
 		socket.on('chat message', message => {
-			$('.messages--display').append(
+			$('.messages__display').append(
 				$('<li>')
 					.text(message)
 					.hide()

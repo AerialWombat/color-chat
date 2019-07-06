@@ -6,7 +6,7 @@
 	height: 90%;
 	width: 100%;
 
-	&--display {
+	&__display {
 		height: 90%;
 		margin: 0;
 		padding: 0;
@@ -22,11 +22,11 @@
 		}
 	}
 
-	&--form {
+	&__form {
 		height: 10%;
 		width: 100%;
 
-		&--input {
+		&__input {
 			padding: 0.5rem;
 			border: 0;
 			border-radius: 5px;
@@ -35,7 +35,7 @@
 			background-color: #121212;
 		}
 
-		&--submit {
+		&__submit {
 			background: rgb(130, 224, 255);
 			border: 1px solid coral; // Replace with user custom color
 			border-radius: 5px;

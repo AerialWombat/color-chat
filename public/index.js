@@ -5,6 +5,7 @@ window.onload = () => {
 		const $login = $('.login');
 		const $sidebarButton = $('#sidebar-btn');
 		const $membersButton = $('#members-btn');
+		const $editButton = $('#edit-btn');
 		const $overlay = $('.dark-overlay');
 		const $sidebar = $('.sidebar');
 		const $members = $('.members');
@@ -18,6 +19,14 @@ window.onload = () => {
 		$membersButton.on('click', function() {
 			$overlay.fadeToggle();
 			$members.addClass('show');
+		});
+
+		$editButton.on('click', function() {
+			console.log('edit button');
+			$login.fadeToggle();
+			$overlay.fadeToggle();
+			$sidebar.removeClass('show');
+			$members.removeClass('show');
 		});
 
 		$overlay.on('click', function() {
@@ -40,6 +49,8 @@ window.onload = () => {
 			if (nicknameInput.length < 1) {
 				return false;
 			}
+
+			$('.profile__name').css({ color: colorInput });
 
 			socket.emit(
 				'update user',

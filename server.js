@@ -12,29 +12,28 @@ app.get('/', (req, res) => {
 });
 
 const users = {};
+
 io.on('connection', socket => {
 	console.log('User connected...');
 	users[socket.id] = { nickname: socket.id, color: '#000000' };
-	io.emit('chat message', 'A user has connected...');
+	io.emit('server message', 'A user has connected...');
 
 	socket.on('update user', (loginData, fn) => {
 		users[socket.id] = loginData;
 		fn();
 	});
 
-	socket.on('ferret', (name, fn) => {
-		console.log(users);
-	});
-
 	socket.on('chat message', message => {
-		io.emit('chat message', message);
+		const { nickname, color } = users[socket.id];
+		const messageData = { nickname, color, message };
+
+		io.emit('chat message', messageData);
 	});
 
 	socket.on('disconnect', () => {
 		console.log('User disconnected...');
 		delete users[socket.id];
-		console.log(users);
-		io.emit('chat message', 'A user has disconnected...');
+		io.emit('server message', 'A user has disconnected...');
 	});
 });
 

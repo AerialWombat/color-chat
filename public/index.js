@@ -8,6 +8,7 @@ window.onload = () => {
 		const $overlay = $('.dark-overlay');
 		const $sidebar = $('.sidebar');
 		const $members = $('.members');
+		const $messageDisplay = $('.messages__display');
 
 		$sidebarButton.on('click', function() {
 			$overlay.fadeToggle();
@@ -27,6 +28,8 @@ window.onload = () => {
 
 		/* Socket
 ======================================*/
+
+		// Sends chosen nickname and color to server
 		$('.login__form').on('submit', function() {
 			event.preventDefault();
 
@@ -38,7 +41,6 @@ window.onload = () => {
 				return false;
 			}
 
-			console.log('updating user');
 			socket.emit(
 				'update user',
 				{ nickname: nicknameInput, color: colorInput },
@@ -48,6 +50,7 @@ window.onload = () => {
 			);
 		});
 
+		// Sends chat message to server
 		$('.messages__form').on('submit', function() {
 			event.preventDefault();
 			const messageInput = $('.messages__form__input').val();
@@ -62,10 +65,32 @@ window.onload = () => {
 			return false;
 		});
 
-		socket.on('chat message', message => {
-			$('.messages__display').append(
+		// Listens for server messages
+		socket.on('server message', message => {
+			$messageDisplay.append(
 				$('<li>')
 					.text(message)
+					.hide()
+					.fadeIn(100)
+			);
+		});
+
+		// Listens for chat message and appends message with username
+		socket.on('chat message', messageData => {
+			const { nickname, color, message } = messageData;
+
+			$messageDisplay.append(
+				$('<li>')
+					.text(message)
+					.prepend(
+						$('<span>')
+							.text(nickname)
+							.css({
+								marginRight: '.5rem',
+								fontWeight: 'bold',
+								color: color
+							})
+					)
 					.hide()
 					.fadeIn(100)
 			);

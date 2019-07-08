@@ -15,6 +15,9 @@
 
 		li {
 			padding: 0.25rem 0.25rem;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
 
 			&:nth-child(even) {
 				background-color: lighten($dark-color, 5%);

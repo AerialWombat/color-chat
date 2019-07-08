@@ -2,6 +2,7 @@ window.onload = () => {
 	$(document).ready(function() {
 		var socket = io();
 
+		const $login = $('.login');
 		const $sidebarButton = $('#sidebar-btn');
 		const $membersButton = $('#members-btn');
 		const $overlay = $('.dark-overlay');
@@ -26,6 +27,26 @@ window.onload = () => {
 
 		/* Socket
 ======================================*/
+		$('.login__form').on('submit', function() {
+			event.preventDefault();
+
+			const nicknameInput = $('.login__form__nickname').val();
+			const colorInput = $('.login__form__color').val();
+
+			// Check for empty nickname
+			if (nicknameInput.length < 1) {
+				return false;
+			}
+
+			console.log('updating user');
+			socket.emit(
+				'update user',
+				{ nickname: nicknameInput, color: colorInput },
+				() => {
+					$login.fadeToggle();
+				}
+			);
+		});
 
 		$('.messages__form').on('submit', function() {
 			event.preventDefault();

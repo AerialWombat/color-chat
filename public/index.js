@@ -95,7 +95,7 @@ window.onload = () => {
 					.text(message)
 					.prepend(
 						$('<span>')
-							.text(nickname)
+							.text(`${nickname}: `)
 							.css({
 								marginRight: '.5rem',
 								fontWeight: 'bold',

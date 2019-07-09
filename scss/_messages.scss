@@ -13,11 +13,18 @@
 		list-style: none;
 		overflow: scroll;
 
-		li {
+		.message {
 			padding: 0.25rem 0.25rem;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
+
+			&__nickname {
+				margin-right: 0.25rem;
+				font-weight: bold;
+			}
+
+			&__time {
+				font-size: 0.9rem;
+				opacity: 0.8;
+			}
 
 			&:nth-child(even) {
 				background-color: lighten($dark-color, 5%);

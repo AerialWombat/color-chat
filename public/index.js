@@ -81,6 +81,7 @@ window.onload = () => {
 			$messageDisplay.append(
 				$('<li>')
 					.text(message)
+					.addClass('message')
 					.hide()
 					.fadeIn(100)
 			);
@@ -92,16 +93,21 @@ window.onload = () => {
 
 			$messageDisplay.append(
 				$('<li>')
-					.text(message)
 					.prepend(
 						$('<span>')
 							.text(`${nickname}: `)
+							.addClass('message__nickname')
 							.css({
-								marginRight: '.5rem',
-								fontWeight: 'bold',
 								color: color
 							})
 					)
+					.append(
+						$('<span>')
+							.text('12:34 PM')
+							.addClass('message__time')
+					)
+					.append($('<p>').text(message))
+					.addClass('message')
 					.hide()
 					.fadeIn(100)
 			);

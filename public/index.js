@@ -90,6 +90,18 @@ window.onload = () => {
 		// Listens for chat message and appends message with username
 		socket.on('chat message', messageData => {
 			const { nickname, color, message } = messageData;
+			const currentHour = new Date().getHours();
+			const currentMinutes = new Date().getMinutes();
+			let timestamp;
+
+			// Checks hour and creates formatted timestamp
+			if (currentHour === 0) {
+				timestamp = `12:${currentMinutes} AM`;
+			} else if (currentHour > 12 && currentHour !== 0) {
+				timestamp = `${currentHour - 12}:${currentMinutes} PM`;
+			} else {
+				timestamp = `${currentHour}:${currentMinutes} AM`;
+			}
 
 			$messageDisplay.append(
 				$('<li>')
@@ -103,7 +115,7 @@ window.onload = () => {
 					)
 					.append(
 						$('<span>')
-							.text('12:34 PM')
+							.text(timestamp)
 							.addClass('message__time')
 					)
 					.append($('<p>').text(message))

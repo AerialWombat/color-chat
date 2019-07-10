@@ -21,10 +21,11 @@
 
 	&__list {
 		list-style: none;
+		overflow: auto;
 
 		li {
 			padding: 0.5rem;
-			overflow: scroll;
+			overflow: auto;
 
 			&:nth-child(even) {
 				background-color: lighten($dark-color, 5%);

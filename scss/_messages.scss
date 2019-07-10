@@ -7,7 +7,7 @@
 	width: 100%;
 
 	&__display {
-		height: 90%;
+		height: 85%;
 		margin: 0;
 		padding: 0;
 		list-style: none;
@@ -29,6 +29,21 @@
 			&:nth-child(even) {
 				background-color: lighten($dark-color, 5%);
 			}
+		}
+	}
+
+	.typing-notification {
+		visibility: hidden;
+		height: 5%;
+		font-size: 0.75rem;
+		font-weight: bold;
+
+		animation-play-state: paused;
+
+		&.show {
+			visibility: visible;
+			animation: pulse 1.5s infinite alternate;
+			animation-play-state: running;
 		}
 	}
 

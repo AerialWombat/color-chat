@@ -12,15 +12,42 @@ app.get('/', (req, res) => {
 });
 
 const users = {};
+let currentlyTyping = [];
 
 io.on('connection', socket => {
 	console.log('User connected...');
-	users[socket.id] = { nickname: socket.id, color: '#000000' };
+	users[socket.id] = { nickname: socket.id, color: '#000000', isTyping: false };
 	io.emit('server message', 'A user has connected...');
 
 	socket.on('update user', (loginData, fn) => {
 		users[socket.id] = loginData;
 		fn();
+	});
+
+	socket.on('started typing', () => {
+		users[socket.id].isTyping = true;
+
+		// Checks for all users that are typing and adds to currentlyTyping array if not
+		for (const user in users) {
+			if (
+				users[user].isTyping &&
+				!currentlyTyping.includes(users[user].nickname)
+			) {
+				currentlyTyping.push(users[user].nickname);
+			}
+		}
+
+		io.emit('update currently typing', currentlyTyping);
+	});
+
+	socket.on('stopped typing', () => {
+		users[socket.id].isTyping = false;
+
+		currentlyTyping = currentlyTyping.filter(
+			user => user !== users[socket.id].nickname
+		);
+
+		io.emit('update currently typing', currentlyTyping);
 	});
 
 	socket.on('chat message', message => {

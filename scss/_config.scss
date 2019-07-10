@@ -19,3 +19,14 @@ $success-color: #28a745;
 	background-color: $color;
 	color: set-text-color($color);
 }
+
+// Fades in and out
+@keyframes pulse {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 0.9;
+	}
+}

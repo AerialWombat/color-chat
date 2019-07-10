@@ -9,6 +9,7 @@ window.onload = () => {
 		const $overlay = $('.dark-overlay');
 		const $sidebar = $('.sidebar');
 		const $members = $('.members');
+		const $typingNotification = $('.typing-notification');
 		const $messageDisplay = $('.messages__display');
 
 		$sidebarButton.on('click', function() {
@@ -22,7 +23,6 @@ window.onload = () => {
 		});
 
 		$editButton.on('click', function() {
-			console.log('edit button');
 			$login.fadeToggle();
 			$overlay.fadeToggle();
 			$sidebar.removeClass('show');
@@ -61,6 +61,22 @@ window.onload = () => {
 			);
 		});
 
+		// Checks for keypress in input and emits a 'typing' notification
+		let typingTimeout;
+		$('.messages__form__input').on('keypress', function(event) {
+			if (event.which === 13) {
+				clearTimeout(typingTimeout);
+				socket.emit('stopped typing');
+			} else if (event.which !== 13) {
+				clearTimeout(typingTimeout);
+				socket.emit('started typing');
+
+				typingTimeout = setTimeout(() => {
+					socket.emit('stopped typing');
+				}, 5000);
+			}
+		});
+
 		// Sends chat message to server
 		$('.messages__form').on('submit', function() {
 			event.preventDefault();
@@ -85,6 +101,38 @@ window.onload = () => {
 					.hide()
 					.fadeIn(100)
 			);
+		});
+
+		socket.on('update currently typing', currentlyTyping => {
+			if (currentlyTyping.length > 0) {
+				let notificationText = '';
+
+				if (currentlyTyping.length === 1) {
+					notificationText += currentlyTyping[0];
+				} else {
+					for (let i = 0; i < currentlyTyping.length; i++) {
+						if (i > 1) {
+							break;
+						} else if (i !== currentlyTyping.length - 1) {
+							notificationText += `${currentlyTyping[i]}, `;
+						} else {
+							notificationText += `${currentlyTyping[i]} `;
+						}
+					}
+				}
+
+				if (currentlyTyping.length > 2) {
+					notificationText += `and ${currentlyTyping.length - 2} more `;
+				}
+
+				notificationText += `${
+					currentlyTyping.length === 1 ? ' is' : ' are'
+				} typing...`;
+
+				$typingNotification.addClass('show').text(notificationText);
+			} else {
+				$typingNotification.removeClass('show').text('');
+			}
 		});
 
 		// Listens for chat message and appends message with username

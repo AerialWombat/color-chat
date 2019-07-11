@@ -16,8 +16,11 @@ let currentlyTyping = [];
 
 io.on('connection', socket => {
 	console.log('User connected...');
-	//TODO: Change nickname to spliced part of ID and "User" prepended to it
-	users[socket.id] = { nickname: socket.id, color: '#000000', isTyping: false };
+	users[socket.id] = {
+		nickname: `User ${socket.id.slice(0, 3)}`,
+		color: '#000000',
+		isTyping: false
+	};
 	io.emit('update members', users);
 
 	io.emit('server message', 'A user has connected...');

@@ -9,6 +9,7 @@ window.onload = () => {
 		const $editButton = $('#edit-btn');
 		const $overlay = $('.dark-overlay');
 		const $sidebar = $('.sidebar');
+		const $profileName = $('.profile__name');
 		const $members = $('.members');
 		const $membersList = $('.members__list');
 		const $typingNotification = $('.typing-notification');
@@ -58,6 +59,7 @@ window.onload = () => {
 				'update user',
 				{ nickname: nicknameInput, color: colorInput },
 				() => {
+					$profileName.text(nicknameInput).css(colorInput);
 					$login.fadeToggle();
 				}
 			);

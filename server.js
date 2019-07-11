@@ -16,11 +16,15 @@ let currentlyTyping = [];
 
 io.on('connection', socket => {
 	console.log('User connected...');
+	//TODO: Change nickname to spliced part of ID and "User" prepended to it
 	users[socket.id] = { nickname: socket.id, color: '#000000', isTyping: false };
+	io.emit('update members', users);
+
 	io.emit('server message', 'A user has connected...');
 
 	socket.on('update user', (loginData, fn) => {
 		users[socket.id] = loginData;
+		io.emit('update members', users);
 		fn();
 	});
 
@@ -61,6 +65,7 @@ io.on('connection', socket => {
 		console.log('User disconnected...');
 		delete users[socket.id];
 		io.emit('server message', 'A user has disconnected...');
+		io.emit('update members', users);
 	});
 });
 

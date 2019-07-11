@@ -1,6 +1,7 @@
 window.onload = () => {
 	$(document).ready(function() {
 		var socket = io();
+		let membersOnline = [];
 
 		const $login = $('.login');
 		const $sidebarButton = $('#sidebar-btn');
@@ -9,6 +10,7 @@ window.onload = () => {
 		const $overlay = $('.dark-overlay');
 		const $sidebar = $('.sidebar');
 		const $members = $('.members');
+		const $membersList = $('.members__list');
 		const $typingNotification = $('.typing-notification');
 		const $messageDisplay = $('.messages__display');
 
@@ -92,17 +94,30 @@ window.onload = () => {
 			return false;
 		});
 
-		// Listens for server messages
-		socket.on('server message', message => {
-			$messageDisplay.append(
-				$('<li>')
-					.text(message)
-					.addClass('message')
-					.hide()
-					.fadeIn(100)
-			);
+		// Updates members online list
+		socket.on('update members', userData => {
+			membersOnline = Object.keys(userData).map(key => {
+				return {
+					id: key,
+					nickname: userData[key].nickname,
+					color: userData[key].color
+				};
+			});
+
+			$membersList.empty();
+
+			for (let i = 0; i < membersOnline.length; i++) {
+				const { id, nickname, color } = membersOnline[i];
+				$membersList.append(
+					$('<li>')
+						.text(nickname)
+						.attr('id', id)
+						.css({ color: color })
+				);
+			}
 		});
 
+		// Updates notification with users that are currently typing
 		socket.on('update currently typing', currentlyTyping => {
 			if (currentlyTyping.length > 0) {
 				let notificationText = '';
@@ -133,6 +148,17 @@ window.onload = () => {
 			} else {
 				$typingNotification.removeClass('show').text('');
 			}
+		});
+
+		// Listens for server messages
+		socket.on('server message', message => {
+			$messageDisplay.append(
+				$('<li>')
+					.text(message)
+					.addClass('message')
+					.hide()
+					.fadeIn(100)
+			);
 		});
 
 		// Listens for chat message and appends message with username

@@ -17,8 +17,8 @@ let currentlyTyping = [];
 io.on('connection', socket => {
 	console.log('User connected...');
 	users[socket.id] = {
-		nickname: `User ${socket.id.slice(0, 3)}`,
-		color: '#000000',
+		nickname: `User_${socket.id.slice(0, 3)}`,
+		color: '#ffffff',
 		isTyping: false
 	};
 	io.emit('update members', users);
